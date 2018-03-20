@@ -1,26 +1,26 @@
 import java.sql.*;
 public class DBConn {
 
-	public static void main(String[] args) {
-		
+	
+	public static Connection conn = null;
+	
+	public static void connectDB() {
+
 		try {
 			
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/setup?autoReconnect=true&useSSL=false","root","root");
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			
-			/*
-			Statement stmt = conn.createStatement();
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/setup?autoReconnect=true&useSSL=false","root","root");
 			
-			ResultSet resSet = stmt.executeQuery("select * from Apparat");
-			
-			while (resSet.next()) {
-				System.out.println(resSet.getString("Beskrivelse"));
-			}
-			*/
-			
+
 		}
 		catch (Exception exc) {
 			exc.printStackTrace();
 		}
 		
+	}
+	
+	public static Connection getConnection() {
+		return conn;
 	}
 }

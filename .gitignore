@@ -43,3 +43,4 @@ hs_err_pid*
 !.vscode/launch.json
 !.vscode/extensions.json
 .history
+/bin/

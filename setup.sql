@@ -106,24 +106,24 @@ ALTER TABLE ApparatITreningssenter
 
 
 
-INSERT INTO Treningssenter VALUES(1, "Games'n'Gains", 10, 250, "Moholt");
-INSERT INTO Treningsøkt VALUES(1, null, null, 60, 5, 5, "God økt! Masse gains!", 1);
-INSERT INTO ØvelseGruppe VALUES(1, "Bissa");
+#INSERT INTO Treningssenter VALUES(1, "Games'n'Gains", 10, 250, "Moholt");
+#INSERT INTO Treningsøkt VALUES(1, null, null, 60, 5, 5, "God økt! Masse gains!", 1);
+#INSERT INTO ØvelseGruppe VALUES(1, "Bissa");
 
-INSERT INTO Øvelse VALUES(1,"Bicepscurls",1);
-INSERT INTO ØvelseITreningsøkt VALUES(1,1, 50, 12, 3);
+#INSERT INTO Øvelse VALUES(1,"Bicepscurls",1);
+#INSERT INTO ØvelseITreningsøkt VALUES(1,1, 50, 12, 3);
 
-INSERT INTO Apparat VALUES(1,"Seated Curlz", "Make your guns fire");
+#INSERT INTO Apparat VALUES(1,"Seated Curlz", "Make your guns fire");
 
-INSERT INTO Fastmontert VALUES(1,1);
-INSERT INTO ApparatITreningssenter VALUES(1,1);
+#INSERT INTO Fastmontert VALUES(1,1);
+#INSERT INTO ApparatITreningssenter VALUES(1,1);
 
 
 #Denne skal feile, og gjør det 
 #INSERT INTO Fastmontert VALUES(1,10,3,1); 
 
 
-SELECT Navn, Beskrivelse
-FROM Apparat
+#SELECT Navn, Beskrivelse
+#FROM Apparat
 
         
