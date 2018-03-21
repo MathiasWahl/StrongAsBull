@@ -5,15 +5,14 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		List<Apparat> apparatList = new ArrayList();
-		List<Ovelse> ovelseList = new ArrayList();
-		List<Ovelsegruppe> ovelsegruppeList = new ArrayList();
-		
 		DBConn.connectDB();
-		apparatList.add(new Apparat("Benk","Min beste venn"));
-		ovelsegruppeList.add(new Ovelsegruppe("Rygg"));
-		ovelseList.add(new Ovelse("Markløft",1));
-
 		
+		Registrering.setCounters();
+		Registrering.registrerApparat("Benk", "Min beste venn");
+		Registrering.registrerApparat("asgd", "Misgfdenn");
+		Registrering.registrerOvelsegruppe("Rygg");
+		Registrering.registrerOvelse("Markløft",1);
+
+		System.out.println("Ferdig");
 	}
 }

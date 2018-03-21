@@ -2,8 +2,8 @@ DROP DATABASE IF EXISTS SETUP;
 CREATE SCHEMA SETUP;
 USE SETUP;
 
-CREATE TABLE Treningsøkt(
-TreningsøktID int NOT NULL,
+CREATE TABLE Treningsokt(
+TreningsoktID int NOT NULL,
 Dato date,
 Tidspunkt time,
 Varighet int,
@@ -11,31 +11,31 @@ Form int,
 Prestasjon int,
 Notat varchar(100),
 TreningssenterID int,
-PRIMARY KEY(TreningsøktID)
+PRIMARY KEY(TreningsoktID)
 );
 
-CREATE TABLE Øvelsegruppe(
-ØvelsegruppeID int NOT NULL,
+CREATE TABLE Ovelsegruppe(
+OvelsegruppeID int NOT NULL,
 Beskrivelse varchar(100),
-PRIMARY KEY(ØvelsegruppeID)
+PRIMARY KEY(OvelsegruppeID)
 );
 
-CREATE TABLE Øvelse(
-ØvelseID int NOT NULL,
+CREATE TABLE Ovelse(
+OvelseID int NOT NULL,
 Navn varchar(30),
-ØvelsegruppeID int,
-PRIMARY KEY(ØvelseID)
+OvelsegruppeID int,
+PRIMARY KEY(OvelseID)
 );
 
 CREATE TABLE Fastmontert(
-FastmontertID int UNIQUE PRIMARY KEY references Øvelse(ØvelseID)
+FastmontertID int UNIQUE PRIMARY KEY references Ovelse(OvelseID)
 	ON UPDATE CASCADE
     ON DELETE CASCADE,
 ApparatID int
 );
 
 CREATE TABLE Fri(
-FriID int UNIQUE PRIMARY KEY references Øvelse(ØvelseID)
+FriID int UNIQUE PRIMARY KEY references Ovelse(OvelseID)
 	ON UPDATE CASCADE
     ON DELETE CASCADE,
 TekstligBeskrivelse varchar(100)
@@ -52,18 +52,18 @@ CREATE TABLE Treningssenter(
 TreningssenterID int NOT NULL,
 Navn varchar(30),
 Rangering int,
-Størrelse int,
+Storrelse int,
 Sted varchar(100),
 PRIMARY KEY(TreningssenterID)
 );
 
-CREATE TABLE ØvelseITreningsøkt(
-TreningsøktID int,
-ØvelseID int,
+CREATE TABLE OvelseITreningsokt(
+TreningsoktID int,
+OvelseID int,
 Kilo int,
 Repetisjoner int,
 Sett int,
-PRIMARY KEY(TreningsøktID, ØvelseID)
+PRIMARY KEY(TreningsoktID, OvelseID)
 );
 
 CREATE TABLE ApparatITreningssenter(
@@ -72,13 +72,13 @@ ApparatID int,
 PRIMARY KEY(TreningssenterID, ApparatID)
 );
 
-ALTER TABLE Treningsøkt
+ALTER TABLE Treningsokt
 	ADD FOREIGN KEY(TreningssenterID) REFERENCES Treningssenter(TreningssenterID)
 		ON UPDATE CASCADE
         ON DELETE SET NULL;
         
-ALTER TABLE Øvelse
-	ADD FOREIGN KEY(ØvelsegruppeID) REFERENCES Øvelsegruppe(ØvelsegruppeID)
+ALTER TABLE Ovelse
+	ADD FOREIGN KEY(OvelsegruppeID) REFERENCES Ovelsegruppe(OvelsegruppeID)
 		ON UPDATE CASCADE
         ON DELETE CASCADE;
         
@@ -87,11 +87,11 @@ ALTER TABLE Fastmontert
 		ON UPDATE CASCADE
         ON DELETE CASCADE;
         
-ALTER TABLE ØvelseITreningsøkt
-	ADD FOREIGN KEY(TreningsøktID) REFERENCES Treningsøkt(TreningsøktID)
+ALTER TABLE OvelseITreningsokt
+	ADD FOREIGN KEY(TreningsoktID) REFERENCES Treningsokt(TreningsoktID)
 		ON UPDATE CASCADE
         ON DELETE CASCADE,
-	ADD FOREIGN KEY(ØvelseID) REFERENCES Øvelse(ØvelseID)
+	ADD FOREIGN KEY(OvelseID) REFERENCES Ovelse(OvelseID)
 		ON UPDATE CASCADE
         ON DELETE CASCADE;
         
@@ -103,8 +103,14 @@ ALTER TABLE ApparatITreningssenter
 		ON UPDATE CASCADE
         ON DELETE CASCADE;
         
+        
+	#INSERT INTO Apparat VALUES(2,"Seated Curlz", "Make your guns fire");
+    #INSERT INTO Apparat VALUES(1,"Seated Curlz", "Make your guns fire");
+    #INSERT INTO Apparat VALUES(3,"Seated Curlz", "Make your guns fire");
+	#SELECT MAX(ApparatID) AS MaxApparatID
+    #FROM Apparat;
 
-
+# DET SOM STÅR UNDER HER ER IKKE ENDRET FRA Ø TIL O:
 
 #INSERT INTO Treningssenter VALUES(1, "Games'n'Gains", 10, 250, "Moholt");
 #INSERT INTO Treningsøkt VALUES(1, null, null, 60, 5, 5, "God økt! Masse gains!", 1);
