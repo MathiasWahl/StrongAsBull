@@ -47,7 +47,7 @@ public class Registrering {
 		}
 	}
 	
-	public static void registrerOvelse(String navn, int ovelsegruppeID, int type, int apparatID, String beskrivelse) {
+	public static void registrerOvelse(String navn, int ovelsegruppeID, String type, int apparatID, String beskrivelse) {
 		try {
 			Statement statement = DBConn.getConnection().createStatement();
 			String sql = "INSERT INTO Ovelse "
@@ -60,7 +60,7 @@ public class Registrering {
 		catch (Exception exc) {
 			exc.printStackTrace();
 		}
-		if (type==1) {
+		if (type.equals("fastmontert")) {
 			try {
 				Statement statement = DBConn.getConnection().createStatement();
 				String sql = "INSERT INTO Fastmontert "
@@ -102,7 +102,7 @@ public class Registrering {
 		
 	}
 	
-	public static void registrerTreningsøkt(String dato, String tidspunkt, int varighet, int form,
+	public static void registrerTreningsokt(String dato, String tidspunkt, int varighet, int form,
     		int prestasjon, String notat, int treningssenterID) {
 		try {
 			
@@ -140,7 +140,8 @@ public class Registrering {
 			String sql = "INSERT INTO OvelseITreningsokt "
 						+" (TreningsoktID, OvelseID, Kilo, Repetisjoner, Sett)"
 						+"VALUES(" + treningsoktID + ", " + ovelseID + ", " + kilo + ", " + repetisjoner + ", " + sett + ")";
-			statement.executeUpdate(sql);
+			System.out.println(sql);
+			//statement.executeUpdate(sql);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
