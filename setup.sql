@@ -38,7 +38,7 @@ CREATE TABLE Fri(
 FriID int UNIQUE PRIMARY KEY references Ovelse(OvelseID)
 	ON UPDATE CASCADE
     ON DELETE CASCADE,
-TekstligBeskrivelse varchar(100)
+Beskrivelse varchar(100)
 );
 
 CREATE TABLE Apparat(
@@ -102,13 +102,6 @@ ALTER TABLE ApparatITreningssenter
 	ADD FOREIGN KEY(ApparatID) REFERENCES Apparat(ApparatID)
 		ON UPDATE CASCADE
         ON DELETE CASCADE;
-        
-        
-	#INSERT INTO Apparat VALUES(2,"Seated Curlz", "Make your guns fire");
-    #INSERT INTO Apparat VALUES(1,"Seated Curlz", "Make your guns fire");
-    #INSERT INTO Apparat VALUES(3,"Seated Curlz", "Make your guns fire");
-	#SELECT MAX(ApparatID) AS MaxApparatID
-    #FROM Apparat;
 
 # DET SOM STÅR UNDER HER ER IKKE ENDRET FRA Ø TIL O:
 

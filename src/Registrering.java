@@ -15,7 +15,6 @@ public class Registrering {
 		ovelsegruppeIDCounter = setCounter("Ovelsegruppe");
 		treningsoktIDCounter = setCounter("Treningsokt");
 		treningssenterIDCounter = setCounter("Treningssenter");
-		System.out.println(treningssenterIDCounter);
 	}
 	
 	private static int setCounter(String entitet) {
@@ -23,74 +22,16 @@ public class Registrering {
 		try {
 			Statement statement = DBConn.getConnection().createStatement();
 			String sql = "SELECT MAX(" + entitet + "ID) AS Max" + entitet + "ID FROM " + entitet;
-			System.out.println(sql);
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()) {
-				System.out.println(rs.getInt("Max" + entitet + "ID"));
 				counter = rs.getInt("Max" + entitet + "ID") + 1;
 			}
 		}
 		catch (SQLException e){
 			e.printStackTrace();
-			
 		}
 		return counter;
 	}
-	
-//	public static void setCounters() {
-//		try {
-//			Statement statement = DBConn.getConnection().createStatement();
-//			String sql = "SELECT MAX(ApparatID) AS MaxApparatID FROM Apparat";
-//			ResultSet rs = statement.executeQuery(sql);
-//			while(rs.next()){
-//				apparatIDCounter = rs.getInt("MaxApparatID") + 1;
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		try {
-//			Statement statement = DBConn.getConnection().createStatement();
-//			String sql = "SELECT MAX(OvelseID) AS MaxOvelseID FROM Ovelse";
-//			ResultSet rs = statement.executeQuery(sql);
-//			while(rs.next()){
-//				ovelseIDCounter = rs.getInt("MaxOvelseID") + 1;
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		try {
-//			Statement statement = DBConn.getConnection().createStatement();
-//			String sql = "SELECT MAX(OvelsegruppeID) AS MaxOvelsegruppeID FROM Ovelsegruppe";
-//			ResultSet rs = statement.executeQuery(sql);
-//			while(rs.next()){
-//				ovelsegruppeIDCounter = rs.getInt("MaxOvelsegruppeID") + 1;
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		try {
-//			Statement statement = DBConn.getConnection().createStatement();
-//			String sql = "SELECT MAX(TreningsoktID) AS MaxTreningsoktID FROM Treningsokt";
-//			ResultSet rs = statement.executeQuery(sql);
-//			while(rs.next()){
-//				treningsoktIDCounter = rs.getInt("MaxTreningsoktID") + 1;
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		try {
-//			Statement statement = DBConn.getConnection().createStatement();
-//			String sql = "SELECT MAX(OvelsegruppeID) AS MaxOvelsegruppeID FROM Ovelsegruppe";
-//			ResultSet rs = statement.executeQuery(sql);
-//			while(rs.next()){
-//				ovelsegruppeIDCounter = rs.getInt("MaxOvelsegruppeID") + 1;
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		
-//	}
-	
 
 	public static void registrerApparat(String navn, String beskrivelse) {
 		try {
@@ -106,20 +47,44 @@ public class Registrering {
 		}
 	}
 	
-	public static void registrerOvelse(String navn, int ovelsegruppeID) {
+	public static void registrerOvelse(String navn, int ovelsegruppeID, int type, int apparatID, String beskrivelse) {
 		try {
 			Statement statement = DBConn.getConnection().createStatement();
 			String sql = "INSERT INTO Ovelse "
 						+" (OvelseID, Navn, OvelsegruppeID)"
 						+" VALUES(" + ovelseIDCounter + ", '" + navn + "', '" + ovelsegruppeID + "')";
 			statement.executeUpdate(sql);
-			ovelseIDCounter++;
+			
+			
 		}
 		catch (Exception exc) {
 			exc.printStackTrace();
 		}
-		
+		if (type==1) {
+			try {
+				Statement statement = DBConn.getConnection().createStatement();
+				String sql = "INSERT INTO Fastmontert "
+							+" (FastmontertID, ApparatID)"
+							+"VALUES(" + ovelseIDCounter + ", " + apparatID + ")";
+				statement.executeUpdate(sql);
+				ovelseIDCounter++;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} else {
+			try {
+				Statement statement = DBConn.getConnection().createStatement();
+				String sql = "INSERT INTO Fri "
+							+" (FriID, Beskrivelse)"
+							+"VALUES(" + ovelseIDCounter + ", '" + beskrivelse + "')";
+				statement.executeUpdate(sql);
+				ovelseIDCounter++;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
+	
 	
 	public static void registrerOvelsegruppe(String beskrivelse) {
 		try {
@@ -167,6 +132,31 @@ public class Registrering {
 			exc.printStackTrace();
 		}
 		
+	}
+	
+	public static void registrerOvelseITreningsokt(int treningsoktID, int ovelseID, int kilo, int repetisjoner, int sett) {
+		try {
+			Statement statement = DBConn.getConnection().createStatement();
+			String sql = "INSERT INTO OvelseITreningsokt "
+						+" (TreningsoktID, OvelseID, Kilo, Repetisjoner, Sett)"
+						+"VALUES(" + treningsoktID + ", " + ovelseID + ", " + kilo + ", " + repetisjoner + ", " + sett + ")";
+			statement.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public static void registrerApparatITreningssenter(int treningssenterID, int apparatID) {
+		try {
+			Statement statement = DBConn.getConnection().createStatement();
+			String sql = "INSERT INTO ApparatITreningssenter "
+						+" (TreningssenterID, ApparatID"
+						+"VALUES(" + treningssenterID + ", " + apparatID + ")";
+			statement.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }
 
