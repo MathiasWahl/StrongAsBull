@@ -105,17 +105,17 @@ ALTER TABLE ApparatITreningssenter
 
 # DET SOM STÅR UNDER HER ER IKKE ENDRET FRA Ø TIL O:
 
-#INSERT INTO Treningssenter VALUES(1, "Games'n'Gains", 10, 250, "Moholt");
-#INSERT INTO Treningsøkt VALUES(1, null, null, 60, 5, 5, "God økt! Masse gains!", 1);
-#INSERT INTO ØvelseGruppe VALUES(1, "Bissa");
+INSERT INTO Treningssenter VALUES(1, "Games'n'Gains", 10, 250, "Moholt");
+INSERT INTO Treningsokt VALUES(1, 20180101, null, 60, 5, 5, "God økt! Masse gains!", 1);
+INSERT INTO OvelseGruppe VALUES(1, "Bissa");
 
-#INSERT INTO Øvelse VALUES(1,"Bicepscurls",1);
-#INSERT INTO ØvelseITreningsøkt VALUES(1,1, 50, 12, 3);
+INSERT INTO Ovelse VALUES(1,"Bicepscurls",1);
+INSERT INTO OvelseITreningsokt VALUES(1,1, 50, 12, 3);
 
-#INSERT INTO Apparat VALUES(1,"Seated Curlz", "Make your guns fire");
+INSERT INTO Apparat VALUES(1,"Seated Curlz", "Make your guns fire");
 
-#INSERT INTO Fastmontert VALUES(1,1);
-#INSERT INTO ApparatITreningssenter VALUES(1,1);
+INSERT INTO Fastmontert VALUES(1,1);
+INSERT INTO ApparatITreningssenter VALUES(1,1);
 
 
 #Denne skal feile, og gjør det 
@@ -124,5 +124,11 @@ ALTER TABLE ApparatITreningssenter
 
 #SELECT Navn, Beskrivelse
 #FROM Apparat
+
+SELECT Dato, Kilo, Repetisjoner, Sett
+								FROM OvelseITreningsokt NATURAL JOIN Treningsokt 
+								WHERE Dato >= SUBDATE(CURDATE(),100)
+								ORDER BY Dato desc
+
 
         

@@ -1,14 +1,22 @@
+package project;
 
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Scanner;
+
+import project.Sporring.*;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
 
 		DBConn.connectDB();
 
 		Registrering.runSetCounter();
-
+		
+		//Statement statement = DBConn.getConnection().createStatement();
+		//statement.executeUpdate("DROP DATABASE setup");
+		
 		Registrering.registrerApparat("Benk", "Min beste venn");
 		Registrering.registrerApparat("Knebøy", "Min værste fiende");
 		Registrering.registrerOvelsegruppe("Rygg");
@@ -16,6 +24,7 @@ public class Main {
 		Registrering.registrerOvelse("Markløft", 1, "fastmontert", 1, "");
 		Registrering.registrerTreningssenter("Gløs", 5, 100, "Gløshaugen");
 		Registrering.registrerTreningsokt("2018-03-21", "19:01:00", 2, 10, 5, "Mye curls", 1);
+		Registrering.registrerOvelseITreningsokt(1,1,50,12,3);
 		// Denne lager duplikat primærnøkkel hvis man kjører Main 2 ganger:
 		// Registrering.registrerOvelseITreningsokt(1, 1, 100, 10, 3);
 
@@ -28,15 +37,26 @@ public class Main {
 		System.out.println("Ferdig");
 	}
 
-	public static void meny(Scanner reader) {
-		System.out.println("Skriv 1 for å registrere informasjon: ");
+	public static void meny(Scanner reader) throws SQLException {
+		Sporring getter = new Sporring();
+		System.out.println("Skriv: \n1 for å registrere informasjon \n2 for å se de de siste treningsøktene ");
 		int svar = reader.nextInt();
 		if (svar == 1) {
-			registrere(reader);
+			registrere(reader, getter);
+		} else if (svar == 2) {
+			System.out.println("Skriv: \n1 for å se de siste n øktene \n2 for å se resultatlogg for enkeltøvelse siste n dager ");
+			svar = reader.nextInt();
+			if (svar == 1) {
+				seNØkter(reader, getter);
+			} else if (svar == 2){
+				seOvelseSisteNDager(reader, getter);
+			}
 		}
 	}
 
-	public static void registrere(Scanner reader) {
+	public static void registrere(Scanner reader, Sporring getter) throws SQLException {
+
+		
 		System.out.println("Skriv:\n0 for å avslutte\n1 for apparat\n2 for Ovelsegruppe\n3 for Ovelse\n4 for Treningssenter\n5 for Treningsøkt\n6 for Ovelse i treningsøkt\n7 for Apparat i treningssenter");
 		int svar = reader.nextInt();
 		if (svar == 0) {
@@ -69,7 +89,10 @@ public class Main {
 			System.out.println("Skriv inn øvelsens navn:");
 			String name = reader.nextLine();
 			
-			System.out.println("Skriv inn øvelsegruppeID:");
+			
+			System.out.println("Skriv inn øvelsegruppeID. Du har disse å velge mellom:");
+			String choices = getter.ovelsesGrupper();
+			System.out.println(choices);
 			int groupID = reader.nextInt();
 			reader.nextLine(); // Consume empty nextLine
 			
@@ -81,7 +104,6 @@ public class Main {
 			}
 			int gearID = 0;
 			if (type.equals("fastmontert")) {
-				System.out.println("Skriv inn ApparatID:");
 				gearID = reader.nextInt();
 				reader.nextLine(); // Consume empty nextLine
 			}
@@ -149,11 +171,13 @@ public class Main {
 			//Øvelse i treningsøkt
 			reader.nextLine(); // Consume empty nextLine
 			
-			System.out.println("Skriv inn treningsøktens ID:");
+			System.out.println("Skriv inn treningsøktens ID (viser opptil de 10 siste):");
+			System.out.println(getter.treningsOkter());
 			int oktID = reader.nextInt();
 			reader.nextLine(); // Consume empty nextLine
 			
-			System.out.println("Skriv inn øvelsens ID:");
+			System.out.println("Skriv inn øvelsens ID, du kan velge mellom disse:");
+			System.out.println(getter.ovelser());
 			int exerciseID = reader.nextInt();
 			reader.nextLine(); // Consume empty nextLine
 			
@@ -186,5 +210,22 @@ public class Main {
 			Registrering.registrerApparatITreningssenter(treningssenterID, apparatID);
 			
 		}
+	}
+
+	public static void seNØkter(Scanner reader, Sporring getter) throws SQLException {
+		System.out.println("Skriv inn hvor mange av de siste gjennomførte øktene du vil se info om:");
+		int n = reader.nextInt();
+		String info = getter.nSisteTreninger(n);
+		System.out.println(info);
+	}
+	
+	public static void seOvelseSisteNDager(Scanner reader,Sporring getter) throws SQLException {
+		System.out.println("Skriv inn øvelseID, du har disse å velge mellom:");
+		System.out.println(getter.ovelser());
+		int exercizeID = reader.nextInt();
+		System.out.println("Skriv inn hvor mange dager bakover du vil se økter for:");
+		int n = reader.nextInt();
+		String info = getter.ovelseSisteNDager(exercizeID, n);
+		System.out.println(info);
 	}
 }

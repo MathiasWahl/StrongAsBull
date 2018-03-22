@@ -1,3 +1,4 @@
+package project;
 import java.sql.*;
 
 
@@ -16,6 +17,7 @@ public class Registrering {
 		treningsoktIDCounter = setCounter("Treningsokt");
 		treningssenterIDCounter = setCounter("Treningssenter");
 	}
+	
 	
 	private static int setCounter(String entitet) {
 		int counter = 0;
@@ -140,8 +142,7 @@ public class Registrering {
 			String sql = "INSERT INTO OvelseITreningsokt "
 						+" (TreningsoktID, OvelseID, Kilo, Repetisjoner, Sett)"
 						+"VALUES(" + treningsoktID + ", " + ovelseID + ", " + kilo + ", " + repetisjoner + ", " + sett + ")";
-			System.out.println(sql);
-			//statement.executeUpdate(sql);
+			statement.executeUpdate(sql);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -1,3 +1,4 @@
+package project;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -8,12 +9,27 @@ public class Sporring {
 		
 	}
 	
+	public String treningsOkter() throws SQLException {
+		Statement statement = DBConn.getConnection().createStatement();
+		String treningsSporring = "SELECT TreningsoktID, Dato, Notat "
+								+ "FROM Treningsokt "
+								+ "ORDER BY Dato desc "
+								+ "LIMIT " + Integer.toString(10); 
+		ResultSet rs = statement.executeQuery(treningsSporring);
+		String returnString = "ID \tDato \t\tNotat \n";
+		while(rs.next()) {
+			returnString += rs.getString(1) + "\t" +rs.getString("Dato") + "\t" + rs.getString("Notat") + "\n";
+		}
+		return returnString;
+	}
+	
+	
 	public String nSisteTreninger(int n) throws SQLException {
 		Statement statement = DBConn.getConnection().createStatement();
 		String treningsSporring = "SELECT TreningsoktID, Dato, Notat "
 								+ "FROM Treningsokt "
 								+ "ORDER BY TreningsoktID desc "
-								+ "LIMIT " + n; 
+								+ "LIMIT " + Integer.toString(n); 
 		ResultSet rs = statement.executeQuery(treningsSporring);
 		String returnString = "ID \tDato \t\tNotat \n";
 		while(rs.next()) {
@@ -56,5 +72,19 @@ public class Sporring {
 		}
 		return returnString;
 		
+	}
+
+	public String ovelseSisteNDager(int øvelseID, int dager) throws SQLException {
+		Statement statement = DBConn.getConnection().createStatement();
+		String treningsSporring = "SELECT Dato, Kilo, Repetisjoner, Sett "
+								+ "FROM OvelseITreningsokt NATURAL JOIN Treningsokt "
+								+ "WHERE Dato >= SUBDATE(CURDATE(),"+Integer.toString(dager)+") "
+								+ "ORDER BY Dato desc";
+		ResultSet rs = statement.executeQuery(treningsSporring);
+		String returnString = "ID \tDato \t\tKilo \tRepetisjoner \t Sett \n";
+		while(rs.next()) {
+			returnString += rs.getString(1) + "\t" +rs.getString("Dato") + "\t" + rs.getString("Kilo")  + "\t"+ rs.getString("Reptisjoner")  + "\t"+ rs.getString("Sett") + "\n";
+		}
+		return returnString;
 	}
 }
