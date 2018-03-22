@@ -87,4 +87,45 @@ public class Sporring {
 		}
 		return returnString;
 	}
+	
+	public String treningssentere() throws SQLException {
+		Statement statement = DBConn.getConnection().createStatement();
+		String senterSporring = "SELECT TreningssenterID, Navn FROM Treningssenter";
+		ResultSet rs = statement.executeQuery(senterSporring);
+		String returnString = "ID \t\tNavn \n";
+		while (rs.next()) {
+			returnString += rs.getString("TreningssenterID") + "\t\t" + rs.getString("Navn") + "\n";
+		}
+		return returnString;
+	}
+	
+	public String apparatPaSenter(int treningssenterID) throws SQLException {
+		Statement statement = DBConn.getConnection().createStatement();
+		String apparatSporring = "SELECT  ApparatID, Navn "
+								+ "FROM Apparat NATURAL JOIN ApparatITreningssenter "
+								+ "WHERE TreningssenterID = " + treningssenterID;
+		ResultSet rs = statement.executeQuery(apparatSporring);
+		String returnString = "ID\t Navn \n";
+		while (rs.next()) {
+			returnString += rs.getString("ApparatID") + "\t " + rs.getString("Navn") + "\n";
+		}
+		return returnString;
+	}
+	
+	public String oktPaSenter(int senterID) throws SQLException {
+		Statement statement = DBConn.getConnection().createStatement();
+		String oktSporring = "SELECT  TreningsoktID, Dato, Prestasjon, Form, Notat "
+							+ "FROM Treningsokt "
+							+ "WHERE TreningssenterID = " + senterID;
+		ResultSet rs = statement.executeQuery(oktSporring);
+		String returnString = "ID   Dato\t  Prestasjon    Form    Notat\n";
+		while (rs.next()) {
+			returnString += rs.getString(1) + "    "
+						+ rs.getString(2) + "\t      "
+						+ rs.getString(3) + "\t\t"
+						+ rs.getString(4) + "\t"
+						+ rs.getString(5) + "\n";
+		}
+		return returnString;
+	}
 }
