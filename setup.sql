@@ -103,11 +103,10 @@ ALTER TABLE ApparatITreningssenter
 		ON UPDATE CASCADE
         ON DELETE CASCADE;
 
-# DET SOM STÅR UNDER HER ER IKKE ENDRET FRA Ø TIL O:
-
+/*
 INSERT INTO Treningssenter VALUES(1, "Games'n'Gains", 10, 250, "Moholt");
 INSERT INTO Treningsokt VALUES(1, 20180101, null, 60, 5, 5, "God økt! Masse gains!", 1);
-INSERT INTO OvelseGruppe VALUES(1, "Bissa");
+INSERT INTO Ovelsegruppe VALUES(1, "Bissa");
 
 INSERT INTO Ovelse VALUES(1,"Bicepscurls",1);
 INSERT INTO OvelseITreningsokt VALUES(1,1, 50, 12, 3);
@@ -117,18 +116,10 @@ INSERT INTO Apparat VALUES(1,"Seated Curlz", "Make your guns fire");
 INSERT INTO Fastmontert VALUES(1,1);
 INSERT INTO ApparatITreningssenter VALUES(1,1);
 
-
-#Denne skal feile, og gjør det 
-#INSERT INTO Fastmontert VALUES(1,10,3,1); 
-
-
-#SELECT Navn, Beskrivelse
-#FROM Apparat
-
 SELECT Dato, Kilo, Repetisjoner, Sett
 								FROM OvelseITreningsokt NATURAL JOIN Treningsokt 
 								WHERE Dato >= SUBDATE(CURDATE(),100)
 								ORDER BY Dato desc
-
+*/
 
         
