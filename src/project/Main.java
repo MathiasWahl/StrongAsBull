@@ -24,40 +24,58 @@ public class Main {
 		Registrering.registrerOvelse("Markløft", 1, "fastmontert", 1, "");
 		Registrering.registrerTreningssenter("Gløs", 5, 100, "Gløshaugen");
 		Registrering.registrerTreningsokt("2018-03-21", "19:01:00", 2, 10, 5, "Mye curls", 1);
-		Registrering.registrerOvelseITreningsokt(1,1,50,12,3);
 		// Denne lager duplikat primærnøkkel hvis man kjører Main 2 ganger:
+		// Registrering.registrerOvelseITreningsokt(1,1,50,12,3);
 		// Registrering.registrerOvelseITreningsokt(1, 1, 100, 10, 3);
 
 		Scanner reader = new Scanner(System.in);
-
+		
 		meny(reader);
-
+		
 		reader.close();
 
-		System.out.println("Ferdig");
+		System.out.println("Velkommen tilbake! :)");
 	}
 
 	public static void meny(Scanner reader) throws SQLException {
 		Sporring getter = new Sporring();
-		System.out.println("Skriv: \n1 for å registrere informasjon \n2 for å se de de siste treningsøktene ");
-		int svar = reader.nextInt();
-		if (svar == 1) {
-			registrere(reader, getter);
-		} else if (svar == 2) {
-			System.out.println("Skriv: \n1 for å se de siste n øktene \n2 for å se resultatlogg for enkeltøvelse siste n dager ");
+		int svar = -1;
+		while (svar != 0) {
+			System.out.println("Skriv: "
+					+ "\n0 for å avslutte "
+					+ "\n1 for å registrere informasjon "
+					+ "\n2 for å se de de siste treningsøktene "
+					+ "\n3 for å se resultatlogg i en enkelt øvelse "
+					+ "\n4 for å se øvelse i en øvelsegruppe "
+					+ "\n5 for å sjekke ut treningssentere!");
 			svar = reader.nextInt();
 			if (svar == 1) {
+				registrere(reader, getter);
+			} else if (svar == 2) {
 				seNØkter(reader, getter);
-			} else if (svar == 2){
+			} else if (svar == 3) {
 				seOvelseSisteNDager(reader, getter);
+			} else if (svar == 4) {
+				seOvelserIOvelsegruppe(reader, getter);
+			} else if (svar == 5) {
+				treningssenterMeny(reader, getter);
 			}
 		}
+			
 	}
 
 	public static void registrere(Scanner reader, Sporring getter) throws SQLException {
 
 		
-		System.out.println("Skriv:\n0 for å avslutte\n1 for apparat\n2 for Ovelsegruppe\n3 for Ovelse\n4 for Treningssenter\n5 for Treningsøkt\n6 for Ovelse i treningsøkt\n7 for Apparat i treningssenter");
+		System.out.println("Skriv:"
+				+ "\n0 for å avslutte"
+				+ "\n1 for apparat"
+				+ "\n2 for Ovelsegruppe"
+				+ "\n3 for Ovelse"
+				+ "\n4 for Treningssenter"
+				+ "\n5 for Treningsøkt"
+				+ "\n6 for Ovelse i treningsøkt"
+				+ "\n7 for Apparat i treningssenter");
 		int svar = reader.nextInt();
 		if (svar == 0) {
 			//continue
@@ -110,7 +128,6 @@ public class Main {
 			
 			System.out.println("Skriv inn øvelsens beskrivelse:");
 			String description = reader.nextLine();
-			Registrering.registrerOvelsegruppe(description);
 			
 			Registrering.registrerOvelse(name, groupID, type, gearID,  description);
 			
@@ -228,4 +245,34 @@ public class Main {
 		String info = getter.ovelseSisteNDager(exercizeID, n);
 		System.out.println(info);
 	}
+	
+	public static void seOvelserIOvelsegruppe(Scanner reader,Sporring getter) throws SQLException {
+		System.out.println("Velg en OvelsegruppeID: ");
+		System.out.println(getter.ovelsesGrupper());
+		int ovelsegruppeID = reader.nextInt();
+		System.out.println(getter.ovelserIGruppe(ovelsegruppeID));
+	}
+	
+	public static void treningssenterMeny(Scanner reader, Sporring getter) throws SQLException {
+		System.out.println("Skriv: "
+				+ "\n0 for å avslutte "
+				+ "\n1 for å se alle treningssentere "
+				+ "\n2 for å se alle apparater på et treningssenter "
+				+ "\n3 for å se treningsøkter på et treningssenter ");
+		int svar = reader.nextInt();
+		if (svar == 1) {
+			System.out.println("Treningssentere:");
+			getter.treningssentere();
+		} else if (svar == 2) {
+			System.out.println("Velg treningssenterID:\n"
+					+ getter.treningssentere());
+			int svar1 = reader.nextInt();
+			System.out.println(getter.apparatPaSenter(svar1));
+		} else if (svar == 3) {
+			System.out.println("Velg treningssenterID:\n"
+					+ getter.treningssentere());
+			int svar2 = reader.nextInt();
+			System.out.println(getter.oktPaSenter(svar2));
+		}
+	}	
 }
