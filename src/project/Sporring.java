@@ -74,7 +74,7 @@ public class Sporring {
 		
 	}
 
-	public String ovelseSisteNDager(int øvelseID, int dager) throws SQLException {
+	public String ovelseSisteNDager(int ovelseID, int dager) throws SQLException {
 		Statement statement = DBConn.getConnection().createStatement();
 		String treningsSporring = "SELECT Dato, Kilo, Repetisjoner, Sett "
 								+ "FROM OvelseITreningsokt NATURAL JOIN Treningsokt "

@@ -32,19 +32,19 @@ public class Main {
 		int svar = -1;
 		while (svar != 0) {
 			System.out.println("Skriv: "
-					+ "\n0 for å avslutte "
-					+ "\n1 for å registrere informasjon "
-					+ "\n2 for å se de de siste treningsøktene "
-					+ "\n3 for å se resultatlogg i en enkelt øvelse "
-					+ "\n4 for å se øvelse i en øvelsegruppe "
-					+ "\n5 for å sjekke ut treningssentere!"
-					+ "\n6 for å generere testdata (kan kun gjøres en gang)");
+					+ "\n0 for aa avslutte "
+					+ "\n1 for aa registrere informasjon "
+					+ "\n2 for aa se de de siste treningsoktene "
+					+ "\n3 for aa se resultatlogg i en enkelt ovelse "
+					+ "\n4 for aa se ovelse i en ovelsegruppe "
+					+ "\n5 for aa sjekke ut treningssentere!"
+					+ "\n6 for aa generere testdata (kan kun gjores en gang)");
 
 			svar = reader.nextInt();
 			if (svar == 1) {
 				registrere(reader, getter);
 			} else if (svar == 2) {
-				seNØkter(reader, getter);
+				seNOkter(reader, getter);
 			} else if (svar == 3) {
 				seOvelseSisteNDager(reader, getter);
 			} else if (svar == 4) {
@@ -67,17 +67,17 @@ public class Main {
 			Registrering.registrerTreningssenter("Golds Gym", 10, 250, "Moholt");
 			Registrering.registrerApparat("Benk", "Min beste venn");
 			Registrering.registrerApparatITreningssenter(1, 1); 				// Putter benken i golds gym
-			Registrering.registrerApparat("Squatrack", "Min værste fiende");
-			Registrering.registrerApparatITreningssenter(2, 1); 				// Putter squatracken i golds gym
+			Registrering.registrerApparat("Squatrack", "Min vaerste fiende");
+			Registrering.registrerApparatITreningssenter(1, 2); 				// Putter squatracken i golds gym
 			Registrering.registrerOvelsegruppe("Bryst"); 					//Gruppe 1 er bryst
 			Registrering.registrerOvelsegruppe("Bein"); 						//Gruppe 2 er bein
 			Registrering.registrerOvelsegruppe("Armer"); 					//Gruppe 3 er armer
 			Registrering.registrerOvelse("Benk", 1, "fastmontert", 1, "Press stanga opp");
-			Registrering.registrerOvelse("Squats", 1, "fastmontert", 2, "Prøv å overleve");
+			Registrering.registrerOvelse("Squats", 1, "fastmontert", 2, "Prov aa overleve");
 			Registrering.registrerOvelse("Curls", 1, "fri", 0, "Make your guns fire");
 			
 			Registrering.registrerTreningsokt("2018-03-21", "19:01:00", 2, 10, 5, "Mye curls", 1);
-			// Denne lager duplikat primærnøkkel hvis man kjører Main 2 ganger:
+			// Denne lager duplikat primærnokkel hvis man kjorer Main 2 ganger:
 			// Registrering.registrerOvelseITreningsokt(1,1,50,12,3);
 			// Registrering.registrerOvelseITreningsokt(1, 1, 100, 10, 3);
 		}
@@ -86,13 +86,13 @@ public class Main {
 
 
 		System.out.println("Skriv:"
-				+ "\n0 for å avslutte"
+				+ "\n0 for aa avslutte"
 				+ "\n1 for apparat"
 				+ "\n2 for Ovelsegruppe"
 				+ "\n3 for Ovelse"
 				+ "\n4 for Treningssenter"
-				+ "\n5 for Treningsøkt"
-				+ "\n6 for Ovelse i treningsøkt"
+				+ "\n5 for Treningsokt"
+				+ "\n6 for Ovelse i treningsokt"
 				+ "\n7 for Apparat i treningssenter");
 		int svar = reader.nextInt();
 		if (svar == 0) {
@@ -111,7 +111,7 @@ public class Main {
 			Registrering.registrerApparat(name, description);
 
 		} else if (svar == 2) {
-			//Øvelsegruppe
+			//Ovelsegruppe
 			reader.nextLine(); // Consume empty nextLine
 
 			System.out.println("Skriv inn gruppens beskrivelse:");
@@ -119,14 +119,14 @@ public class Main {
 			Registrering.registrerOvelsegruppe(description);
 
 		} else if (svar == 3) {
-			//Øvelse
+			//Ovelse
 			reader.nextLine(); // Consume empty nextLine
 
-			System.out.println("Skriv inn øvelsens navn:");
+			System.out.println("Skriv inn ovelsens navn:");
 			String name = reader.nextLine();
 
 
-			System.out.println("Skriv inn øvelsegruppeID. Du har disse å velge mellom:");
+			System.out.println("Skriv inn ovelsegruppeID. Du har disse aa velge mellom:");
 			String choices = getter.ovelsesGrupper();
 			System.out.println(choices);
 			int groupID = reader.nextInt();
@@ -144,7 +144,7 @@ public class Main {
 				reader.nextLine(); // Consume empty nextLine
 			}
 
-			System.out.println("Skriv inn øvelsens beskrivelse:");
+			System.out.println("Skriv inn ovelsens beskrivelse:");
 			String description = reader.nextLine();
 
 			Registrering.registrerOvelse(name, groupID, type, gearID,  description);
@@ -162,7 +162,7 @@ public class Main {
 			int rating = reader.nextInt();
 			reader.nextLine(); // Consume empty nextLine
 
-			System.out.println("Skriv inn senterets størelse (i kvm):");
+			System.out.println("Skriv inn senterets storelse (i kvm):");
 			int size = reader.nextInt();
 			reader.nextLine(); // Consume empty nextLine
 
@@ -172,51 +172,51 @@ public class Main {
 			Registrering.registrerTreningssenter(name, rating, size, location);
 
 		} else if (svar == 5) {
-			//Treninsøkt
+			//Treninsokt
 			reader.nextLine(); // Consume empty nextLine
 
-			System.out.println("Skriv inn øktens dato (YYYY-MM-DD):");
+			System.out.println("Skriv inn oktens dato (YYYY-MM-DD):");
 			String date = reader.nextLine();
 
-			System.out.println("Skriv inn øktens tidspunkt (HHMM):");
+			System.out.println("Skriv inn oktens tidspunkt (HHMM):");
 			String time = reader.nextLine();
 
-			System.out.println("Skriv inn øktens varighet (i minutter):");
+			System.out.println("Skriv inn oktens varighet (i minutter):");
 			int duration = reader.nextInt();
 			reader.nextLine(); // Consume empty nextLine
 
-			System.out.println("Skriv inn øktens formrangering (1-10):");
+			System.out.println("Skriv inn oktens formrangering (1-10):");
 			int form = reader.nextInt();
 			reader.nextLine(); // Consume empty nextLine
 
-			System.out.println("Skriv inn øktens prestasjonsivå (1-10):");
+			System.out.println("Skriv inn oktens prestasjonsivaa (1-10):");
 			int quality = reader.nextInt();
 			reader.nextLine(); // Consume empty nextLine
 
-			System.out.println("Skriv inn eventuelle notater til økten:");
+			System.out.println("Skriv inn eventuelle notater til okten:");
 			String notes = reader.nextLine();
 
-			System.out.println("Skriv inn øktens treningssenters ID:");
+			System.out.println("Skriv inn oktens treningssenters ID:");
 			int centerID = reader.nextInt();
 			reader.nextLine(); // Consume empty nextLine
 
 			Registrering.registrerTreningsokt(date, time, duration, form,
 		    		quality, notes, centerID);
 		} else if (svar == 6) {
-			//Øvelse i treningsøkt
+			//Ovelse i treningsokt
 			reader.nextLine(); // Consume empty nextLine
 
-			System.out.println("Skriv inn treningsøktens ID (viser opptil de 10 siste):");
+			System.out.println("Skriv inn treningsoktens ID (viser opptil de 10 siste):");
 			System.out.println(getter.treningsOkter());
 			int oktID = reader.nextInt();
 			reader.nextLine(); // Consume empty nextLine
 
-			System.out.println("Skriv inn øvelsens ID, du kan velge mellom disse:");
+			System.out.println("Skriv inn ovelsens ID, du kan velge mellom disse:");
 			System.out.println(getter.ovelser());
 			int exerciseID = reader.nextInt();
 			reader.nextLine(); // Consume empty nextLine
 
-			System.out.println("Skriv inn antall kilo (per løft):");
+			System.out.println("Skriv inn antall kilo (per loft):");
 			int kg = reader.nextInt();
 			reader.nextLine(); // Consume empty nextLine
 
@@ -247,18 +247,18 @@ public class Main {
 		}
 	}
 
-	public static void seNØkter(Scanner reader, Sporring getter) throws SQLException {
-		System.out.println("Skriv inn hvor mange av de siste gjennomførte øktene du vil se info om:");
+	public static void seNOkter(Scanner reader, Sporring getter) throws SQLException {
+		System.out.println("Skriv inn hvor mange av de siste gjennomforte oktene du vil se info om:");
 		int n = reader.nextInt();
 		String info = getter.nSisteTreninger(n);
 		System.out.println(info);
 	}
 
 	public static void seOvelseSisteNDager(Scanner reader,Sporring getter) throws SQLException {
-		System.out.println("Skriv inn øvelseID, du har disse å velge mellom:");
+		System.out.println("Skriv inn ovelseID, du har disse aa velge mellom:");
 		System.out.println(getter.ovelser());
 		int exercizeID = reader.nextInt();
-		System.out.println("Skriv inn hvor mange dager bakover du vil se økter for:");
+		System.out.println("Skriv inn hvor mange dager bakover du vil se okter for:");
 		int n = reader.nextInt();
 		String info = getter.ovelseSisteNDager(exercizeID, n);
 		System.out.println(info);
@@ -273,14 +273,14 @@ public class Main {
 
 	public static void treningssenterMeny(Scanner reader, Sporring getter) throws SQLException {
 		System.out.println("Skriv: "
-				+ "\n0 for å avslutte "
-				+ "\n1 for å se alle treningssentere "
-				+ "\n2 for å se alle apparater på et treningssenter "
-				+ "\n3 for å se treningsøkter på et treningssenter ");
+				+ "\n0 for aa avslutte "
+				+ "\n1 for aa se alle treningssentere "
+				+ "\n2 for aa se alle apparater paa et treningssenter "
+				+ "\n3 for aa se treningsokter paa et treningssenter ");
 		int svar = reader.nextInt();
 		if (svar == 1) {
-			System.out.println("Treningssentere:");
-			getter.treningssentere();
+			System.out.println("Treningssentere:\n"
+			+ getter.treningssentere());
 		} else if (svar == 2) {
 			System.out.println("Velg treningssenterID:\n"
 					+ getter.treningssentere());
