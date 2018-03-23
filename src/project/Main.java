@@ -39,15 +39,13 @@ public class Main {
 
 	public static void meny(Scanner reader) throws SQLException {
 		Sporring getter = new Sporring();
-		int svar = -1;
-		while (svar != 0) {
-			System.out.println("Skriv: "
-					+ "\n0 for å avslutte "
-					+ "\n1 for å registrere informasjon "
-					+ "\n2 for å se de de siste treningsøktene "
-					+ "\n3 for å se resultatlogg i en enkelt øvelse "
-					+ "\n4 for å se øvelse i en øvelsegruppe "
-					+ "\n5 for å sjekke ut treningssentere!");
+
+		System.out.println("Skriv: \n1 for å registrere informasjon \n2 for å se info om økter og øvelser ");
+		int svar = reader.nextInt();
+		if (svar == 1) {
+			registrere(reader, getter);
+		} else if (svar == 2) {
+			System.out.println("Skriv: \n1 for å se de siste n øktene \n2 for å se resultatlogg for enkeltøvelse siste n dager \n3 for å finne alle øvelser i en gruppe");
 			svar = reader.nextInt();
 			if (svar == 1) {
 				registrere(reader, getter);
@@ -56,9 +54,10 @@ public class Main {
 			} else if (svar == 3) {
 				seOvelseSisteNDager(reader, getter);
 			} else if (svar == 4) {
-				seOvelserIOvelsegruppe(reader, getter);
+				finnOvelserIGruppe(reader, getter);
 			} else if (svar == 5) {
 				treningssenterMeny(reader, getter);
+
 			}
 		}
 
@@ -246,33 +245,12 @@ public class Main {
 		System.out.println(info);
 	}
 
-	public static void seOvelserIOvelsegruppe(Scanner reader,Sporring getter) throws SQLException {
-		System.out.println("Velg en OvelsegruppeID: ");
-		System.out.println(getter.ovelsesGrupper());
-		int ovelsegruppeID = reader.nextInt();
-		System.out.println(getter.ovelserIGruppe(ovelsegruppeID));
-	}
 
-	public static void treningssenterMeny(Scanner reader, Sporring getter) throws SQLException {
-		System.out.println("Skriv: "
-				+ "\n0 for å avslutte "
-				+ "\n1 for å se alle treningssentere "
-				+ "\n2 for å se alle apparater på et treningssenter "
-				+ "\n3 for å se treningsøkter på et treningssenter ");
-		int svar = reader.nextInt();
-		if (svar == 1) {
-			System.out.println("Treningssentere:");
-			getter.treningssentere();
-		} else if (svar == 2) {
-			System.out.println("Velg treningssenterID:\n"
-					+ getter.treningssentere());
-			int svar1 = reader.nextInt();
-			System.out.println(getter.apparatPaSenter(svar1));
-		} else if (svar == 3) {
-			System.out.println("Velg treningssenterID:\n"
-					+ getter.treningssentere());
-			int svar2 = reader.nextInt();
-			System.out.println(getter.oktPaSenter(svar2));
-		}
+
+	public static void finnOvelserIGruppe(Scanner reader, Sporring getter) throws SQLException {
+		System.out.println("Skriv inn gruppeID, du har disse å velge mellom:");
+		System.out.println(getter.ovelsesGrupper());
+		int groupID = reader.nextInt();
+		System.out.println(getter.ovelserIGruppe(groupID));
 	}
 }
