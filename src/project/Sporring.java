@@ -76,14 +76,15 @@ public class Sporring {
 
 	public String ovelseSisteNDager(int ovelseID, int dager) throws SQLException {
 		Statement statement = DBConn.getConnection().createStatement();
-		String treningsSporring = "SELECT Dato, Kilo, Repetisjoner, Sett "
+		String treningsSporring = "SELECT OvelseID, Dato, Kilo, Repetisjoner, Sett "
 								+ "FROM OvelseITreningsokt NATURAL JOIN Treningsokt "
-								+ "WHERE Dato >= SUBDATE(CURDATE(),"+Integer.toString(dager)+") "
+								+ "WHERE (Dato >= SUBDATE(CURDATE(),"+Integer.toString(dager)+")) "
+								+ "AND (OvelseID = " + ovelseID + ") "
 								+ "ORDER BY Dato desc";
 		ResultSet rs = statement.executeQuery(treningsSporring);
-		String returnString = "ID \tDato \t\tKilo \tRepetisjoner \t Sett \n";
+		String returnString = "ID \tDato \t\tKilo \tRepetisjoner \tSett \n";
 		while(rs.next()) {
-			returnString += rs.getString(1) + "\t" +rs.getString("Dato") + "\t" + rs.getString("Kilo")  + "\t"+ rs.getString("Reptisjoner")  + "\t"+ rs.getString("Sett") + "\n";
+			returnString += rs.getString("OvelseID") + "\t" +rs.getString("Dato") + "\t" + rs.getString("Kilo")  + "\t"+ rs.getString("Repetisjoner")  + "\t\t"+ rs.getString("Sett") + "\n";
 		}
 		return returnString;
 	}

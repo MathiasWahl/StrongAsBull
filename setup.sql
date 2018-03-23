@@ -118,8 +118,8 @@ INSERT INTO ApparatITreningssenter VALUES(1,1);
 
 SELECT Dato, Kilo, Repetisjoner, Sett
 								FROM OvelseITreningsokt NATURAL JOIN Treningsokt 
-								WHERE Dato >= SUBDATE(CURDATE(),100)
+								WHERE (Dato >= SUBDATE(CURDATE(),100))
+                                AND (OvelseID = 1)
 								ORDER BY Dato desc
 */
-
         

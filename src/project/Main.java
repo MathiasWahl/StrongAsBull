@@ -31,12 +31,12 @@ public class Main {
 		Sporring getter = new Sporring();
 		int svar = -1;
 		while (svar != 0) {
-			System.out.println("Skriv: "
+			System.out.println("\n-Hovedmeny-\nSkriv: "
 					+ "\n0 for aa avslutte "
 					+ "\n1 for aa registrere informasjon "
-					+ "\n2 for aa se de de siste treningsoktene "
+					+ "\n2 for aa se de de n sist utførte treningsoktene "
 					+ "\n3 for aa se resultatlogg i en enkelt ovelse "
-					+ "\n4 for aa se ovelse i en ovelsegruppe "
+					+ "\n4 for aa se ovelser i en ovelsegruppe "
 					+ "\n5 for aa sjekke ut treningssentere!"
 					+ "\n6 for aa generere testdata (kan kun gjores en gang)");
 
@@ -53,8 +53,9 @@ public class Main {
 				treningssenterMeny(reader, getter);
 			}	else if (svar == 6) {
 				if (!generated) {
-					genererData();
+					genererData(getter);
 					generated = true;
+					System.out.println("Testdata generert!");
 				} else {
 					System.out.println("Du kan kun generere testdata en gang!");
 				}
@@ -63,7 +64,7 @@ public class Main {
 
 	}
 		
-		public static void genererData(){
+		public static void genererData(Sporring getter) throws SQLException{
 			Registrering.registrerTreningssenter("Golds Gym", 10, 250, "Moholt");
 			Registrering.registrerApparat("Benk", "Min beste venn");
 			Registrering.registrerApparatITreningssenter(1, 1); 				// Putter benken i golds gym
@@ -73,13 +74,21 @@ public class Main {
 			Registrering.registrerOvelsegruppe("Bein"); 						//Gruppe 2 er bein
 			Registrering.registrerOvelsegruppe("Armer"); 					//Gruppe 3 er armer
 			Registrering.registrerOvelse("Benk", 1, "fastmontert", 1, "Press stanga opp");
-			Registrering.registrerOvelse("Squats", 1, "fastmontert", 2, "Prov aa overleve");
-			Registrering.registrerOvelse("Curls", 1, "fri", 0, "Make your guns fire");
+			Registrering.registrerOvelse("Squats", 2, "fastmontert", 2, "Prov aa overleve");
+			Registrering.registrerOvelse("Curls", 3, "fri", 0, "Make your guns fire");
 			
-			Registrering.registrerTreningsokt("2018-03-21", "19:01:00", 2, 10, 5, "Mye curls", 1);
-			// Denne lager duplikat primærnokkel hvis man kjorer Main 2 ganger:
-			// Registrering.registrerOvelseITreningsokt(1,1,50,12,3);
-			// Registrering.registrerOvelseITreningsokt(1, 1, 100, 10, 3);
+			Registrering.registrerTreningsokt("2018-01-01", "17:35:00", 46, 10, 10, "Vktig med en liten bissaøkt etter nyttårs", 1);
+			Registrering.registrerOvelseITreningsokt(2, 3, 50, 10, 4);	//Curls
+			
+			Registrering.registrerTreningsokt("2018-03-21", "17:35:00", 117, 8, 10, "Lite squats med dårlig form, mye curls med stram gjennomføring", 1);
+			Registrering.registrerOvelseITreningsokt(1, 1, 100, 10, 3);	//Benk
+			Registrering.registrerOvelseITreningsokt(1, 2, 30, 6, 3);		//Squats
+			Registrering.registrerOvelseITreningsokt(1, 3, 52, 8, 3);		//Curls
+			
+			System.out.println("Testdata generert. Disse oktene er registrert:");
+			System.out.println(getter.nSisteTreninger(2));
+			System.out.println("I okten som var 2018-03-21 er ovelsene benk, squats og curls utført");
+			System.out.println("I okten som var 2018-01-01 er kun ovelsen curls utført");
 		}
 
 	public static void registrere(Scanner reader, Sporring getter) throws SQLException {
