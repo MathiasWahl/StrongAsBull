@@ -153,7 +153,7 @@ public class Registrering {
 		try {
 			Statement statement = DBConn.getConnection().createStatement();
 			String sql = "INSERT INTO ApparatITreningssenter "
-						+" (TreningssenterID, ApparatID"
+						+" (TreningssenterID, ApparatID)"
 						+"VALUES(" + treningssenterID + ", " + apparatID + ")";
 			statement.executeUpdate(sql);
 		} catch (SQLException e) {
