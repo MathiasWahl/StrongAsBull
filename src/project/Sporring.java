@@ -4,17 +4,17 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Sporring {
-	
+
 	public Sporring() {
-		
+
 	}
-	
+
 	public String treningsOkter() throws SQLException {
 		Statement statement = DBConn.getConnection().createStatement();
 		String treningsSporring = "SELECT TreningsoktID, Dato, Notat "
 								+ "FROM Treningsokt "
 								+ "ORDER BY Dato desc "
-								+ "LIMIT " + Integer.toString(10); 
+								+ "LIMIT " + Integer.toString(10);
 		ResultSet rs = statement.executeQuery(treningsSporring);
 		String returnString = "ID \tDato \t\tNotat \n";
 		while(rs.next()) {
@@ -22,14 +22,14 @@ public class Sporring {
 		}
 		return returnString;
 	}
-	
-	
+
+
 	public String nSisteTreninger(int n) throws SQLException {
 		Statement statement = DBConn.getConnection().createStatement();
 		String treningsSporring = "SELECT TreningsoktID, Dato, Notat "
 								+ "FROM Treningsokt "
 								+ "ORDER BY TreningsoktID desc "
-								+ "LIMIT " + Integer.toString(n); 
+								+ "LIMIT " + Integer.toString(n);
 		ResultSet rs = statement.executeQuery(treningsSporring);
 		String returnString = "ID \tDato \t\tNotat \n";
 		while(rs.next()) {
@@ -37,7 +37,7 @@ public class Sporring {
 		}
 		return returnString;
 	}
-	
+
 	public String ovelsesGrupper() throws SQLException {
 		Statement statement = DBConn.getConnection().createStatement();
 		String gruppeSporring = "SELECT * FROM Ovelsegruppe";
@@ -48,7 +48,7 @@ public class Sporring {
 		}
 		return returnString;
 	}
-	
+
 	public String ovelser() throws SQLException {
 		Statement statement = DBConn.getConnection().createStatement();
 		String ovelseSporring = "SELECT OvelseID, Navn FROM Ovelse";
@@ -59,7 +59,7 @@ public class Sporring {
 		}
 		return returnString;
 	}
-	
+
 	public String ovelserIGruppe(int ovelseGruppe) throws SQLException {
 		Statement statement = DBConn.getConnection().createStatement();
 		String ovelserIGruppeSporring = "SELECT  OvelseID, Navn "
@@ -71,7 +71,7 @@ public class Sporring {
 			returnString += rs.getString("OvelseID") + "\t " + rs.getString("Navn") + "\n";
 		}
 		return returnString;
-		
+
 	}
 
 	public String ovelseSisteNDager(int øvelseID, int dager) throws SQLException {
@@ -87,7 +87,7 @@ public class Sporring {
 		}
 		return returnString;
 	}
-	
+
 	public String treningssentere() throws SQLException {
 		Statement statement = DBConn.getConnection().createStatement();
 		String senterSporring = "SELECT TreningssenterID, Navn FROM Treningssenter";
@@ -98,7 +98,7 @@ public class Sporring {
 		}
 		return returnString;
 	}
-	
+
 	public String apparatPaSenter(int treningssenterID) throws SQLException {
 		Statement statement = DBConn.getConnection().createStatement();
 		String apparatSporring = "SELECT  ApparatID, Navn "
@@ -111,7 +111,7 @@ public class Sporring {
 		}
 		return returnString;
 	}
-	
+
 	public String oktPaSenter(int senterID) throws SQLException {
 		Statement statement = DBConn.getConnection().createStatement();
 		String oktSporring = "SELECT  TreningsoktID, Dato, Prestasjon, Form, Notat "
